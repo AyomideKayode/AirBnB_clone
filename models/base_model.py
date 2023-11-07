@@ -4,6 +4,11 @@ from uuid import uuid4
 from datetime import datetime
 import models
 
+""" BaseModel Module that acts as a Parent class for all other classes
+to be created.
+"""
+
+
 class BaseModel:
     """BaseModel class for creating and managing instances.
     Attributes:
@@ -22,7 +27,9 @@ class BaseModel:
     Example:
         >>> my_instance = BaseModel()
         >>> print(my_instance)
-        [BaseModel] (unique_id) {'id': 'unique_id', 'created_at': '2023-11-06T12:34:56.789000', 'updated_at': '2023-11-06T12:34:56.789000'}
+        [BaseModel] (unique_id) {'id': 'unique_id',
+        'created_at': '2023-11-06T12:34:56.789000',
+        'updated_at': '2023-11-06T12:34:56.789000'}
     """
 
     def __init__(self, *args, **kwargs):
@@ -48,7 +55,8 @@ class BaseModel:
         Returns:
             str: A string containing class name, id, and attribute dictionary.
         """
-        return "[{}] ({}) {}".format(self.__class__.__name__, self.id, self.__dict__)
+        return "[{}] ({}) {}".format(self.__class__.__name__,
+                                     self.id, self.__dict__)
 
     def save(self):
         """Updates the `updated_at` attribute with the current datetime.

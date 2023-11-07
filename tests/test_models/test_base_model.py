@@ -40,15 +40,18 @@ class TestBaseModel(unittest.TestCase):
         # Test the to_dict method
         data_dict = self.base_model.to_dict()
         self.assertIsInstance(data_dict, dict)
-        self.assertEqual(data_dict['__class__'], self.base_model.__class__.__name__)
+        self.assertEqual(data_dict['__class__'],
+                         self.base_model.__class__.__name__)
         self.assertIsInstance(data_dict['created_at'], str)
         self.assertIsInstance(data_dict['updated_at'], str)
 
     def test_to_dict_datetime_format(self):
         # Test if the datetime format in the to_dict method is correct
         data_dict = self.base_model.to_dict()
-        self.assertTrue(datetime.strptime(data_dict['created_at'], "%Y-%m-%dT%H:%M:%S.%f"))
-        self.assertTrue(datetime.strptime(data_dict['updated_at'], "%Y-%m-%dT%H:%M:%S.%f"))
+        self.assertTrue(datetime.strptime(data_dict['created_at'],
+                                          "%Y-%m-%dT%H:%M:%S.%f"))
+        self.assertTrue(datetime.strptime(data_dict['updated_at'],
+                                          "%Y-%m-%dT%H:%M:%S.%f"))
 
 
 if __name__ == "__main__":
