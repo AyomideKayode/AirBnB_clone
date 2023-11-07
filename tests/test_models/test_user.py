@@ -56,7 +56,6 @@ class TestUser(unittest.TestCase):
     def test_to_dict(self):
         self.assertEqual('to_dict' in dir(self.user), True)
 
-
     def test_inheritance(self):
         """Test if User class inherits from BaseModel"""
         self.assertIsInstance(self.user, BaseModel)
