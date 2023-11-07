@@ -1,15 +1,24 @@
 #!/usr/bin/python3
 
+import os
 import unittest
 from models.base_model import BaseModel
 from models.user import User
 from datetime import datetime
+
 
 class TestUser(unittest.TestCase):
 
     def setUp(self):
         """Initialize a User instance for testing"""
         self.user = User()
+        self.test_filename = "test_file.json"
+
+    def tearDown(self):
+        """Cleans up any test files created during testing.
+        """
+        if os.path.exists(self.test_filename):
+            os.remove(self.test_filename)
 
     def test_attributes(self):
         """Test if the User class has the expected attributes."""
@@ -51,6 +60,7 @@ class TestUser(unittest.TestCase):
     def test_inheritance(self):
         """Test if User class inherits from BaseModel"""
         self.assertIsInstance(self.user, BaseModel)
+
 
 if __name__ == '__main__':
     unittest.main()

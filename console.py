@@ -30,8 +30,8 @@ class HBNBCommand(cmd.Cmd):
         return True
 
     def do_create(self, arg):
-        """Create a new instance of BaseModel, save it, and print the id
-        Usage: create <class_name>
+        """Usage: create <class_name>
+        Create a new instance of BaseModel, save it, and print the id.
         """
         if not arg:
             print("** class name missing **")
@@ -68,7 +68,7 @@ class HBNBCommand(cmd.Cmd):
             print("** no instance found **")
 
     def do_destroy(self, arg):
-        """Delete an instance based on class name and id
+        """Delete an instance based on class name and id.
         Usage: destroy BaseModel 1234-1234-1234
         """
         if not arg:
@@ -108,8 +108,8 @@ class HBNBCommand(cmd.Cmd):
             print("** class doesn't exist **")
 
     def do_update(self, arg):
-        """Update an instance attribute based on class name and id
-        Usage: update <class name> <id> <attribute name> <attribute value>
+        """Update an instance attribute based on classname and id
+        Usage: update <class> <id> <attribute name> <attribute value>
         """
         if not arg:
             print("** class name missing **")
