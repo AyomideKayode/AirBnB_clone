@@ -36,6 +36,14 @@ class TestBaseModel(unittest.TestCase):
         self.base_model.save()
         self.assertNotEqual(original_updated_at, self.base_model.updated_at)
 
+    def test_save_saves_to_storage(self):
+        # Test if the object is saved to storage
+        from models import storage
+        original_storage_count = len(storage.all())
+        self.base_model.save()
+        new_storage_count = len(storage.all())
+        self.assertEqual(new_storage_count, original_storage_count + 1)
+
     def test_to_dict(self):
         # Test the to_dict method
         data_dict = self.base_model.to_dict()
