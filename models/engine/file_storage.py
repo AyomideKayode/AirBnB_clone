@@ -3,6 +3,7 @@
 import json
 from datetime import datetime
 from models.base_model import BaseModel
+from models.user import User
 import os
 
 """FileStorage Module that serializes instances to a JSON file

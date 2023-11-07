@@ -7,11 +7,15 @@ This is the entry point of our command interpreter.
 import cmd
 import models
 from models.base_model import BaseModel
+from models.user import User
 from models import storage
 
 
 class HBNBCommand(cmd.Cmd):
     prompt = "(hbnb) "
+
+    # list to hold all classes created
+    class_list= {"BaseModel": BaseModel, "User": User}
 
     def emptyline(self):
         """do nothing when empty line + ENTER"""
@@ -32,12 +36,11 @@ class HBNBCommand(cmd.Cmd):
         if not arg:
             print("** class name missing **")
             return
-
-        try:
-            obj = BaseModel()
+        if arg in HBNBCommand.class_list:
+            obj = eval(arg)()
             obj.save()
             print(obj.id)
-        except ImportError:
+        else:
             print("** class doesn't exist **")
 
     def do_show(self, arg):
@@ -49,7 +52,7 @@ class HBNBCommand(cmd.Cmd):
             return
 
         args = arg.split()
-        if args[0] not in ["BaseModel"]:
+        if args[0] not in HBNBCommand.class_list:
             print("** class doesn't exist **")
             return
 
@@ -73,7 +76,7 @@ class HBNBCommand(cmd.Cmd):
             return
 
         args = arg.split()
-        if args[0] not in ["BaseModel"]:
+        if args[0] not in HBNBCommand.class_list:
             print("** class doesn't exist **")
             return
 
@@ -98,7 +101,7 @@ class HBNBCommand(cmd.Cmd):
 
         if len(args) == 0:
             print([str(obj) for obj in objects.values()])
-        elif len(args) == 1 and args[0] in ["BaseModel"]:
+        elif len(args) == 1 and args[0] in HBNBCommand.class_list:
             print([str(obj) for obj in objects.values()
                    if type(obj).__name__ == args[0]])
         else:
@@ -113,7 +116,7 @@ class HBNBCommand(cmd.Cmd):
             return
 
         args = arg.split()
-        if args[0] not in ["BaseModel"]:
+        if args[0] not in HBNBCommand.class_list:
             print("** class doesn't exist **")
             return
 
