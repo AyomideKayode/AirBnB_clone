@@ -15,7 +15,7 @@ class HBNBCommand(cmd.Cmd):
     prompt = "(hbnb) "
 
     # list to hold all classes created
-    class_list= {"BaseModel": BaseModel, "User": User}
+    class_list = {"BaseModel": BaseModel, "User": User}
 
     def emptyline(self):
         """do nothing when empty line + ENTER"""

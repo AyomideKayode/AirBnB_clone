@@ -27,13 +27,15 @@ class FileStorage:
 
     __file_path = "file.json"
     __objects = {}
+    # list to hold all classes created
+    class_list = {"BaseModel": BaseModel, "User": User}
 
     def all(self):
         """Returns the dictionary of stored objects.
         Returns:
             dict: A dictionary of objects.
         """
-        return FileStorage.__objects
+        return self.__objects
 
     def new(self, obj):
         """Adds an object to the stored objects.
@@ -59,14 +61,9 @@ class FileStorage:
         if os.path.exists(self.__file_path):
             try:
                 with open(self.__file_path, mode='r') as my_file:
-                    FileStorage.__objects = {}
                     data = json.load(my_file)
-                for key in data.keys():
-                    cls = data[key].pop("__class__", None)
-                    cr_at = data[key]["created_at"]
-                    cr_at = datetime.strptime(cr_at, "%Y-%m-%dT%H:%M:%S.%f")
-                    up_at = data[key]["updated_at"]
-                    up_at = datetime.strptime(up_at, "%Y-%m-%dT%H:%M:%S.%f")
-                    FileStorage.__objects[key] = eval(cls)(data[key])
+                for key, value in data.items():
+                    obj = self.class_list[value['__class__']](**value)
+                    self.__objects[key] = obj
             except FileNotFoundError:
                 pass
