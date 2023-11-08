@@ -148,6 +148,15 @@ class HBNBCommand(cmd.Cmd):
         obj = objects[key]
         attribute_name = args[2]
         attribute_value = args[3]
+        # Evaluate the attribute value and determine its type
+        try:
+            attribute_value = eval(attribute_value)
+        except Exception as e:
+            print(f"** Invalid attribute value: {e} **")
+            return
+        # Remove leading and trailing quotes
+        if isinstance(attribute_value, str):
+            attribute_value = attribute_value.strip("'\"")
 
         if hasattr(obj, attribute_name):
             setattr(obj, attribute_name, attribute_value)
