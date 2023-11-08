@@ -8,6 +8,11 @@ import cmd
 import models
 from models.base_model import BaseModel
 from models.user import User
+from models.state import State
+from models.city import City
+from models.place import Place
+from models.amenity import Amenity
+from models.review import Review
 from models import storage
 
 
@@ -15,7 +20,9 @@ class HBNBCommand(cmd.Cmd):
     prompt = "(hbnb) "
 
     # list to hold all classes created
-    class_list = {"BaseModel": BaseModel, "User": User}
+    class_list = {"BaseModel": BaseModel, "User": User,
+                  "State": State, "City": City, "Place": Place,
+                  "Amenity": Amenity, "Review": Review}
 
     def emptyline(self):
         """do nothing when empty line + ENTER"""
