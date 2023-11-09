@@ -105,6 +105,36 @@ class TestFileStorage_instantiation(unittest.TestCase):
     def test_storage_initializes(self):
         self.assertEqual(type(models.storage), FileStorage)
 
+class TestFileStorage_methods(unittest.TestCase):
+    """Unittests for testing methods of the FileStorage class.
+    """
+
+    @classmethod
+    def setUp(self):
+        try:
+            os.rename("file.json", "temp")
+        except IOError:
+            pass
+
+    @classmethod
+    def tearDown(self):
+        try:
+            os.remove("file.json")
+        except IOError:
+            pass
+        try:
+            os.rename("temp", "file.json")
+        except IOError:
+            pass
+        FileStorage.FileStorage_objects = {}
+
+    def test_all(self):
+        self.assertEqual(dict, type(models.storage.all()))
+
+    def test_all_with_arg(self):
+        with self.assertRaises(TypeError):
+            models.storage.all(None)
+
 
 
 if __name__ == '__main__':
