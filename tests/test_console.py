@@ -223,6 +223,30 @@ class TestHBNBCommand_all(unittest.TestCase):
         with patch("sys.stdout", new=StringIO()) as output:
             self.assertFalse(HBNBCommand().onecmd("all BaseModel"))
             self.assertTrue(isinstance(output.getvalue(), str))
+class TestHBNBCommand_update(unittest.TestCase):
+    """Unittests for testing the 'update' command in HBNBCommand.
+    """
+
+    def test_update_missing_class_name(self):
+        with patch("sys.stdout", new=StringIO()) as output:
+            self.assertFalse(HBNBCommand().onecmd("update"))
+            self.assertEqual("* class name missing *", output.getvalue().strip())
+
+    def test_update_invalid_class_name(self):
+        with patch("sys.stdout", new=StringIO()) as output:
+            self.assertFalse(HBNBCommand().onecmd("update InvalidClass 12345"))
+            self.assertEqual("* class doesn't exist *", output.getvalue().strip())
+
+    def test_update_missing_instance_id(self):
+        with patch("sys.stdout", new=StringIO()) as output:
+            self.assertFalse(HBNBCommand().onecmd("update BaseModel"))
+            self.assertEqual("* instance id missing *", output.getvalue().strip())
+
+    def test_update_nonexistent_instance(self):
+        with patch("sys.stdout", new=StringIO()) as output:
+            self.assertFalse(HBNBCommand().onecmd("update BaseModel 12345"))
+            self.assertEqual("* no instance found *", output.getvalue().strip())
+
 
 
 if __name__ == '__main__':
