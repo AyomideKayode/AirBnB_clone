@@ -76,6 +76,16 @@ class TestFileStorage(unittest.TestCase):
         """
         with self.assertRaises(TypeError):
             models.storage.reload(None)
+	    def test_class_list_unregistered_class(self):
+        """Test creating an object for an unregistered class."""
+        class_name = "UnregisteredClass"
+        data = {"_class_": class_name, "id": "test_id"}
+        with open(self.test_filename, "w") as f:
+            json.dump({"{}.test_id".format(class_name): data}, f)
+        self.file_storage.FileStorage_objects = {}
+        self.file_storage.reload()
+        self.assertNotIn("{}.test_id".format(class_name), self.file_storage.all())
+
 
 
 if __name__ == '__main__':
