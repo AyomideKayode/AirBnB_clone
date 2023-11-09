@@ -209,6 +209,21 @@ class TestHBNBCommand_show(unittest.TestCase):
             self.assertFalse(HBNBCommand().onecmd("destroy BaseModel 12345"))
             self.assertEqual(no_instance, output.getvalue().strip())
 
+class TestHBNBCommand_all(unittest.TestCase):
+    """Unittests for testing the 'all' command in HBNBCommand.
+    """
+
+    def test_all_invalid_class_name(self):
+        with patch("sys.stdout", new=StringIO()) as output:
+            self.assertFalse(HBNBCommand().onecmd("all InvalidClass"))
+            self.assertEqual("* class doesn't exist *",
+                             output.getvalue().strip())
+
+    def test_all_with_valid_class_name(self):
+        with patch("sys.stdout", new=StringIO()) as output:
+            self.assertFalse(HBNBCommand().onecmd("all BaseModel"))
+            self.assertTrue(isinstance(output.getvalue(), str))
+
 
 if __name__ == '__main__':
     unittest.main()
