@@ -180,5 +180,35 @@ class TestHBNBCommand_show(unittest.TestCase):
         with patch("sys.stdout", new=StringIO()) as output:
             self.assertFalse(HBNBCommand().onecmd("show BaseModel 12345"))
             self.assertEqual(no_instance, output.getvalue().strip())
+
+	    class TestHBNBCommand_destroy(unittest.TestCase):
+    """Unittests for testing the 'destroy' command in HBNBCommand.
+    """
+
+    def test_destroy_missing_class_name(self):
+        class_missing = "* class name missing *"
+        with patch("sys.stdout", new=StringIO()) as output:
+            self.assertFalse(HBNBCommand().onecmd("destroy"))
+            self.assertEqual(class_missing, output.getvalue().strip())
+
+    def test_destroy_invalid_class_name(self):
+        nonexistent = "* class doesn't exist *"
+        with patch("sys.stdout", new=StringIO()) as output:
+            self.assertFalse(HBNBCommand().onecmd("destroy InvalidClass 12345"))
+            self.assertEqual(nonexistent, output.getvalue().strip())
+
+    def test_destroy_missing_instance_id(self):
+        no_instance = "* instance id missing *"
+        with patch("sys.stdout", new=StringIO()) as output:
+            self.assertFalse(HBNBCommand().onecmd("destroy BaseModel"))
+            self.assertEqual(no_instance, output.getvalue().strip())
+
+    def test_destroy_nonexistent_instance(self):
+        no_instance = "* no instance found *"
+        with patch("sys.stdout", new=StringIO()) as output:
+            self.assertFalse(HBNBCommand().onecmd("destroy BaseModel 12345"))
+            self.assertEqual(no_instance, output.getvalue().strip())
+
+
 if __name__ == '__main__':
     unittest.main()
