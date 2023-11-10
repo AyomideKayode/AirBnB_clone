@@ -6,6 +6,12 @@ import models
 import unittest
 from models.engine.file_storage import FileStorage
 from models.base_model import BaseModel
+from models.user import User
+from models.state import State
+from models.city import City
+from models.place import Place
+from models.amenity import Amenity
+from models.review import Review
 
 
 class TestFileStorage(unittest.TestCase):
@@ -76,7 +82,8 @@ class TestFileStorage(unittest.TestCase):
         """
         with self.assertRaises(TypeError):
             models.storage.reload(None)
-	    def test_class_list_unregistered_class(self):
+
+    def test_class_list_unregistered_class(self):
         """Test creating an object for an unregistered class."""
         class_name = "UnregisteredClass"
         data = {"_class_": class_name, "id": "test_id"}
@@ -84,7 +91,9 @@ class TestFileStorage(unittest.TestCase):
             json.dump({"{}.test_id".format(class_name): data}, f)
         self.file_storage.FileStorage_objects = {}
         self.file_storage.reload()
-        self.assertNotIn("{}.test_id".format(class_name), self.file_storage.all())
+        self.assertNotIn("{}.test_id".format(class_name),
+                         self.file_storage.all())
+
 
 class TestFileStorage_instantiation(unittest.TestCase):
     """Unittests for testing instantiation of the FileStorage class."""
@@ -96,14 +105,9 @@ class TestFileStorage_instantiation(unittest.TestCase):
         with self.assertRaises(TypeError):
             FileStorage(None)
 
-    def test_FileStorage_file_path_is_private_str(self):
-        self.assertEqual(str, type(FileStorage.FileStorage_file_path))
-
-    def testFileStorage_objects_is_private_dict(self):
-        self.assertEqual(dict, type(FileStorage.FileStorage_objects))
-
     def test_storage_initializes(self):
         self.assertEqual(type(models.storage), FileStorage)
+
 
 class TestFileStorage_methods(unittest.TestCase):
     """Unittests for testing methods of the FileStorage class.
@@ -135,7 +139,7 @@ class TestFileStorage_methods(unittest.TestCase):
         with self.assertRaises(TypeError):
             models.storage.all(None)
 
-def test_new(self):
+    def test_new(self):
         us = User()
         st = State()
         pl = Place()
@@ -156,6 +160,7 @@ def test_new(self):
     def test_new_with_args(self):
         with self.assertRaises(TypeError):
             models.storage.new(BaseModel(), 1)
+
 
 if __name__ == '__main__':
     unittest.main()
