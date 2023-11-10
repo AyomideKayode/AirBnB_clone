@@ -96,7 +96,27 @@ class TestFileStorage(unittest.TestCase):
 
 
 class TestFileStorage_instantiation(unittest.TestCase):
-    """Unittests for testing instantiation of the FileStorage class."""
+    """Unittests for testing instantiation of the FileStorage class.
+    """
+
+    @classmethod
+    def setUp(self):
+        try:
+            os.rename("file.json", "temp")
+        except IOError:
+            pass
+
+    @classmethod
+    def tearDown(self):
+        try:
+            os.remove("file.json")
+        except IOError:
+            pass
+        try:
+            os.rename("temp", "file.json")
+        except IOError:
+            pass
+        FileStorage.FileStorage_objects = {}
 
     def test_FileStorage_instantiation_no_args(self):
         self.assertEqual(type(FileStorage()), FileStorage)
@@ -160,6 +180,55 @@ class TestFileStorage_methods(unittest.TestCase):
     def test_new_with_args(self):
         with self.assertRaises(TypeError):
             models.storage.new(BaseModel(), 1)
+
+    def test_save(self):
+        bm = BaseModel()
+        am = Amenity()
+        rv = Review()
+        models.storage.new(bm)
+        models.storage.new(am)
+        models.storage.new(rv)
+        models.storage.save()
+        save_text = ""
+        with open("file.json", "r") as f:
+            save_text = f.read()
+            self.assertIn("BaseModel." + bm.id, save_text)
+            self.assertIn("Amenity." + am.id, save_text)
+            self.assertIn("Review." + rv.id, save_text)
+
+    def test_save_with_arg(self):
+        with self.assertRaises(TypeError):
+            models.storage.save(None)
+
+    def test_reload(self):
+        bm = BaseModel()
+        us = User()
+        st = State()
+        pl = Place()
+        cy = City()
+        am = Amenity()
+        rv = Review()
+        models.storage.new(bm)
+        models.storage.new(us)
+        models.storage.new(st)
+        models.storage.new(pl)
+        models.storage.new(cy)
+        models.storage.new(am)
+        models.storage.new(rv)
+        models.storage.save()
+        models.storage.reload()
+        objs = FileStorage._FileStorage__objects
+        self.assertIn("BaseModel." + bm.id, objs)
+        self.assertIn("User." + us.id, objs)
+        self.assertIn("State." + st.id, objs)
+        self.assertIn("Place." + pl.id, objs)
+        self.assertIn("City." + cy.id, objs)
+        self.assertIn("Amenity." + am.id, objs)
+        self.assertIn("Review." + rv.id, objs)
+
+    def test_reload_with_arg(self):
+        with self.assertRaises(TypeError):
+            models.storage.reload(None)
 
 
 if __name__ == '__main__':
