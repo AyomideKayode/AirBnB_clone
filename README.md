@@ -56,7 +56,8 @@ $ ./console.py
 
 Documented commands (type help <topic>):
 ========================================
-EOF  help  quit
+Amenity    City  Place   State  all    create   help  show
+BaseModel  EOF   Review  User   count  destroy  quit  update
 
 (hbnb)
 (hbnb)
@@ -71,7 +72,8 @@ $ echo "help" | ./console.py
 
 Documented commands (type help <topic>):
 ========================================
-EOF  help  quit
+Amenity    City  Place   State  all    create   help  show
+BaseModel  EOF   Review  User   count  destroy  quit  update
 (hbnb)
 $
 $ cat test_help
