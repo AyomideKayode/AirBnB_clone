@@ -43,3 +43,14 @@
 | 6. It's (h)over | [6-index.html](./6-index.html), [styles/4-common.css](./styles/4-common.css), [styles/3-header.css](./styles/3-header.css), [styles/3-footer.css](./styles/3-footer.css), [styles/6-filters.css](./styles/6-filters.css), [images/](./images/) |
 | 7. Display results | [7-index.html](./7-index.html), [styles/4-common.css](./styles/4-common.css), [styles/3-header.css](./styles/3-header.css), [styles/3-footer.css](./styles/3-footer.css), [styles/6-filters.css](./styles/6-filters.css), [styles/7-places.css](./styles/7-places.css), [images/](./images/) |
 | 8. More details | [8-index.html](./8-index.html), [styles/4-common.css](./styles/4-common.css), [styles/3-header.css](./styles/3-header.css), [styles/3-footer.css](./styles/3-footer.css), [styles/6-filters.css](./styles/6-filters.css), [styles/8-places.css](./styles/8-places.css), [images/](./images/) |
+
+### Reveal🤭✨
+Attached below are screenshots of how my design looks after I finished the project. I'm good at this sh!t (language🤭😅)
+
+- Desktop
+
+<img src="./images/desktop_view.png" alt="desktop" width=90%>
+
+- Mobile
+
+<img src="./images/mobile_view.png" alt="mobile" width=90%>
