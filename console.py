@@ -145,7 +145,7 @@ class HBNBCommand(cmd.Cmd):
             print("** value missing **")
             return
 
-        if len(args) == 4:    
+        if len(args) == 4:
             obj = objects[key]
             attribute_name = args[2]
             # Remove leading and trailing whitespaces/quotes
